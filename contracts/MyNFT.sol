@@ -16,12 +16,16 @@ contract MyEpicNFT is ERC721URIStorage {
 
   // This is our SVG code. All we need to change is the word that's displayed. Everything else stays the same.
   // So, we make a baseSvg variable here that all our NFTs can use.
-  string baseSvg = "<svg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='xMinYMin meet' viewBox='0 0 350 350'><style>.base { fill: white; font-family: serif; font-size: 24px; }</style><rect width='100%' height='100%' fill='black' /><text x='50%' y='50%' class='base' dominant-baseline='middle' text-anchor='middle'>";
+    // We split the SVG at the part where it asks for the background color.
+  string svgPartOne = "<svg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='xMinYMin meet' viewBox='0 0 350 350'><style>.base { fill: white; font-family: serif; font-size: 24px; }</style><rect width='100%' height='100%' fill='";
+  string svgPartTwo = "'/><text x='50%' y='50%' class='base' dominant-baseline='middle' text-anchor='middle'>";
 
   // Pick some random funny words, names of anime characters, foods you like, whatever! 
   string[] firstWords = [ "Apple", "Banana", "The", "Orange", "SPECIAL", "Boat", "Lake", "Car", "And" ];
   string[] secondWords = ["1", "4", "90", "33", "32", "SPECIAL"];
   string[] thirdWords = ["pop", "SPECIAL", "nok", "wok", "mok", "dog"];
+
+    string[] colors = ["red", "#08C2A8", "black", "yellow", "blue", "green","purple"];
 
   event NewEpicNFTMinted(address sender, uint256 tokenId);
 
@@ -49,6 +53,12 @@ contract MyEpicNFT is ERC721URIStorage {
     return thirdWords[rand];
   }
 
+    function pickRandomColor(uint256 tokenId) public view returns (string memory) {
+    uint256 rand = random(string(abi.encodePacked("COLOR", Strings.toString(tokenId))));
+    rand = rand % colors.length;
+    return colors[rand];
+  }
+
 //abi.encodePacked() -> to pack together and encode
   function random(string memory input) internal pure returns (uint256) {
       return uint256(keccak256(abi.encodePacked(input)));
@@ -64,9 +74,9 @@ contract MyEpicNFT is ERC721URIStorage {
     string memory second = pickRandomSecondWord(newItemId);
     string memory third = pickRandomThirdWord(newItemId);
     string memory combinedWord = string(abi.encodePacked(first, second, third));
-
-    // I concatenate it all together, and then close the <text> and <svg> tags.
-    string memory finalSvg = string(abi.encodePacked(baseSvg, first, second, third, "</text></svg>"));
+    string memory randomColor = pickRandomColor(newItemId);
+    
+    string memory finalSvg = string(abi.encodePacked(svgPartOne, randomColor, svgPartTwo, combinedWord, "</text></svg>"));
 
 
     // Get all the JSON metadata in place and base64 encode it.
