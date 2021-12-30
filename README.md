@@ -22,3 +22,5 @@ Converter -> https://www.utilities-online.info/base64
 We will also encode/host our json metadata into base64 so it is also permanently secure
 
 Tool " https://nftpreview.0xdev.codes/ " to see a quick preview of the image and the contents of the json without deploying it again and again on the opensea testnet.
+
+frontend -> https://replit.com/@3lv/nft-starter-project#src/App.jsx

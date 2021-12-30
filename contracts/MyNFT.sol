@@ -25,7 +25,7 @@ contract MyEpicNFT is ERC721URIStorage {
   string[] secondWords = ["1", "4", "90", "33", "32", "SPECIAL"];
   string[] thirdWords = ["pop", "SPECIAL", "nok", "wok", "mok", "dog"];
 
-    string[] colors = ["red", "#08C2A8", "black", "yellow", "blue", "green","purple"];
+  string[] colors = ["red", "#08C2A8", "black", "yellow", "blue", "green","purple"];
 
   event NewEpicNFTMinted(address sender, uint256 tokenId);
 
@@ -75,7 +75,7 @@ contract MyEpicNFT is ERC721URIStorage {
     string memory third = pickRandomThirdWord(newItemId);
     string memory combinedWord = string(abi.encodePacked(first, second, third));
     string memory randomColor = pickRandomColor(newItemId);
-    
+
     string memory finalSvg = string(abi.encodePacked(svgPartOne, randomColor, svgPartTwo, combinedWord, "</text></svg>"));
 
 
