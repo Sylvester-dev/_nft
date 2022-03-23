@@ -1,3 +1,3 @@
-A random ERC20 NFT Generator 
+A random ERC20 NFT Generator contract
 
-frontend -> https://replit.com/@3lv/nft-starter-project#src/App.jsx
+frontend -> https://replit.com/@3lv/nft-generator
